@@ -1,0 +1,4 @@
+[submodule "MemoryModule"]
+	path = MemoryModule
+	url = https://github.com/kost/MemoryModule
+	branch = fix-deprecated-wcsnicmp
