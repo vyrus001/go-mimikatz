@@ -54,5 +54,4 @@ func main() {
 	// run mimikatz
 	output := C.MemoryCallEntryPoint(handle)
 	C.MemoryFreeLibrary(handle)
-	print(output)
 }

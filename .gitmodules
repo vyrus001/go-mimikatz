@@ -1,4 +1,4 @@
 [submodule "MemoryModule"]
 	path = MemoryModule
-	url = https://github.com/kost/MemoryModule
-	branch = fix-deprecated-wcsnicmp
+	url = http://github.com/kost/MemoryModule
+	branch = fix-ar-on-win
