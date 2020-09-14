@@ -1,16 +1,8 @@
 # go-mimikatz
-A Go wrapper around a pre-compiled version of the Mimikatz executable for the purpose of anti-virus evasion.
-### Requirements:
-	go-bindata => https://github.com/jteeuwen/go-bindata
-	MemoryModule => https://github.com/fancycode/MemoryModule
+A Go wrapper around a recompiled version of the Mimikatz executable for the purpose of anti-virus evasion.
 
-This application utilizes 3 segmented components to provide a Go wrapper for the Mimikatz application that is not considered malicious by most anti-virus software without additional packing, and can be dynamically built utilizing a repeatable build recipie. This is done by deviding the mimikatz executible into 2 randomly generated pads that are then stored as strings within the compiled Go binary and combined, and subsiquently loaded from within the existing process memory space at run time.
-
-### Build Process:
-1. Build or aquire Mimikatz 32 bit or 64 bit executibles
-2. Use util/paddleball.go to devide the executible into "pad" files
-	Example: go run paddleball.go <path-to-mimikatz32.exe> will output mimikatz32.exe.0.pad and mimikatz32.exe.1.pad
-3. Store the pad files within the main package of the go-mimikatz.go application
-	Example: go-bindata mimikatz32.exe.0.pad mimikatz32.exe.1.pad will output bindata.go
-4. Build the MemoryModule library with MinGW (or gcc)
-5. run go build
+This application will download the current version of mimikatz as a binary, extract the version appropriate for the architecture the application is being run on from the download zip file, transform that executable into encrypted shell code, then call the shell code in its own thread and transfer the current run time context to it.
+### Notes:
+* While this binary as of the date of its Github commit does not set off any defender flags, running it does, due to behavioral flagging. If you want to evade Windows memory protection, you have to add your own special sauce to the payload ;)
+* If compiled as position independent code (`-buildmode=pie`) via go 1.15 or newer, this code can be transformed via [donut](https://github.com/Binject/go-donut) and then subsequently injected into another process on the target machine (a hint for those trying to avoid disk writes during deployment)
+* There are a lot of forks of this code, some of them providing casual code - convenience fixes and then subsequently asking for BTC. If this is you, stop doing that shit, just submit a PR and don't be a dick 

@@ -1,0 +1,12 @@
+github.com/Binject/debug v0.0.0-20200830173345-f54480b6530f h1:aANCCkNbGzwXFh7dubh5FgvlZXuyRnZHcHZXmkRLV/A=
+github.com/Binject/debug v0.0.0-20200830173345-f54480b6530f/go.mod h1:QzgxDLY/qdKlvnbnb65eqTedhvQPbaSP2NqIbcuKvsQ=
+github.com/Binject/go-donut v0.0.0-20200818232812-e80b835e4a65 h1:W+t/F8b0ieVpddex7aVkT4HF+73tw7TFNZjDn+he+ro=
+github.com/Binject/go-donut v0.0.0-20200818232812-e80b835e4a65/go.mod h1:+HPTw2E7tpmDKnls6np/4DMINtku9rw3TgLtKoydgMI=
+github.com/C-Sto/BananaPhone v0.0.0-20200831032744-0f0431a7d400 h1:6NhLsANAxw5kNUSn9z2eyT2pFhbGDFgj2lGNluiWSIw=
+github.com/C-Sto/BananaPhone v0.0.0-20200831032744-0f0431a7d400/go.mod h1:QsEPWHZooj8uXL2YEdpQX+hDr00Plw7myenTiduBHRA=
+github.com/awgh/rawreader v0.0.0-20200626064944-56820a9c6da4 h1:cIAK2NNf2yafdgpFRNJrgZMwvy61BEVpGoHc2n4/yWs=
+github.com/awgh/rawreader v0.0.0-20200626064944-56820a9c6da4/go.mod h1:SalMPBCab3yuID8nIhLfzwoBV+lBRyaC7NhuN8qL8xE=
+github.com/google/uuid v1.1.2 h1:EVhdT+1Kseyi1/pUmXKaFxYsDNy9RQYkMWRH68J/W7Y=
+github.com/google/uuid v1.1.2/go.mod h1:TIyPZe4MgqvfeYDBFedMoGGpEw/LqOeaOT+nhxU+yHo=
+golang.org/x/sys v0.0.0-20200828194041-157a740278f4 h1:kCCpuwSAoYJPkNc6x0xT9yTtV4oKtARo4RGBQWOfg9E=
+golang.org/x/sys v0.0.0-20200828194041-157a740278f4/go.mod h1:h1NjWce9XRLGQEsW7wpKNCjG9DtNlClVuFLEZdDNbEs=
