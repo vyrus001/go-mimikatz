@@ -1,9 +1,10 @@
 module github.com/vyrus001/go-mimikatz
 
-go 1.15
+go 1.17
 
 require (
-	github.com/Binject/go-donut v0.0.0-20200818232812-e80b835e4a65
-	github.com/C-Sto/BananaPhone v0.0.0-20200831032744-0f0431a7d400
-	github.com/google/uuid v1.1.2 // indirect
+	github.com/Binject/debug v0.0.0-20210312092933-6277045c2fdf
+	github.com/Binject/go-donut v0.0.0-20210701074227-67a31e2d883e
 )
+
+require github.com/google/uuid v1.2.0 // indirect
