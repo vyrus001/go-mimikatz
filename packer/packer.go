@@ -18,16 +18,14 @@ import (
 
 const mimikatzURL = `https://github.com/gentilkiwi/mimikatz/releases/download/2.2.0-20210810-2/mimikatz_trunk.zip`
 
-var exePrefix, outputSuffix, outputPath, stub string
+var exePrefix, outputPath, stub string
 
 func init() {
 	switch runtime.GOARCH {
 	case "amd64":
 		exePrefix = "x64"
-		outputSuffix = "_amd64"
 	case "386", "amd64p32":
 		exePrefix = "Win32"
-		outputSuffix = "_386"
 	default:
 		fmt.Println("This arch is not compatible with mimikatz")
 		os.Exit(0)

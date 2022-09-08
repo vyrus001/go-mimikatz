@@ -17,5 +17,5 @@ func main() {
 	for index, padByte := range pad1 {
 		pad2[index] = pad2[index] ^ padByte
 	}
-	syscall.Syscall(uintptr(unsafe.Pointer(&pad2[0])), 0, 0, 0, 0)
+	syscall.SyscallN(uintptr(unsafe.Pointer(&pad2[0])))
 }
